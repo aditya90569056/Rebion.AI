@@ -54,10 +54,15 @@
         }
 
         .brand-avatar {
-            width: 90px;
-            height: 90px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            background: #fff;
+            /* background: #fff; */
+            background-image: url("images/logo.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
             border: 2px solid var(--card-border);
             display: flex;
             align-items: center;
@@ -174,7 +179,11 @@
             position: relative;
             width: 100%;
             padding-top: 100%; /* 1:1 Aspect Ratio default */
-            background: #EAEAEA;
+            /* background: #EAEAEA; */
+            background-image: url("images/7p.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .card-preview.vertical {
@@ -265,7 +274,7 @@
         <header class="brand-header">
             <div class="brand-avatar">
                 <!-- Replace src with your profile logo -->
-                <div style="font-size: 1rem; font-weight: bold; text-align: center;">Rebioin<br>AI</div>
+                <!-- <div style="font-size: 1rem; font-weight: bold; text-align: center;">Rebioin<br>AI</div> -->
             </div>
             <div class="brand-info">
                 <h1 class="brand-title">Rebioin AI <i class="fa-solid fa-circle-check" style="color: #00BCD4; font-size: 1.1rem;"></i></h1>
@@ -292,10 +301,10 @@
             <article class="media-card">
                 <div class="card-preview">
                     <!-- Placeholder image matching content -->
-                    <div style="position: absolute; inset:0; background: #e0e0e0; display:flex; align-items:center; justify-content:center; color:#888;">
+                    <!-- <div style="position: absolute; inset:0; background: #e0e0e0; display:flex; align-items:center; justify-content:center; color:#888;">
                         <i class="fa-solid fa-graduation-cap fa-3x"></i>
                     </div>
-                    <span class="badge-icon"><i class="fa-brands fa-youtube"></i></span>
+                    <span class="badge-icon"><i class="fa-brands fa-youtube"></i></span> -->
                 </div>
                 <div class="card-content">
                     <h2 class="card-title">7 Problems Faced by PhD Students & How to Tackle Them</h2>
@@ -304,7 +313,7 @@
                             <span><i class="fa-regular fa-eye"></i> 45</span>
                             <span><i class="fa-regular fa-clock"></i> 5d ago</span>
                         </div>
-                        <a href="#" class="action-link">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        <a href="https://youtu.be/-kgulSq_9Bg" class="action-link">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
             </article>
@@ -312,9 +321,10 @@
             <!-- Item 2: Podcast Video -->
             <article class="media-card">
                 <div class="card-preview">
-                    <div style="position: absolute; inset:0; background: #dcdcdc; display:flex; align-items:center; justify-content:center; color:#888;">
+                    <img src="images/hiv.jpg" alt="Podcast Thumbnail">
+                    <!-- <div style="position: absolute; inset:0; background: #dcdcdc; display:flex; align-items:center; justify-content:center; color:#888;">
                         <i class="fa-solid fa-dna fa-3x"></i>
-                    </div>
+                    </div> -->
                     <span class="badge-icon"><i class="fa-solid fa-podcast"></i></span>
                 </div>
                 <div class="card-content">
@@ -324,7 +334,7 @@
                             <span><i class="fa-regular fa-eye"></i> 527</span>
                             <span><i class="fa-regular fa-clock"></i> 5d ago</span>
                         </div>
-                        <a href="#" class="action-link">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        <a href="https://youtu.be/i3cqExp2cpE" class="action-link">Watch <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
             </article>
@@ -332,9 +342,10 @@
             <!-- Item 3: Instagram Reel / Short -->
             <article class="media-card">
                 <div class="card-preview vertical">
-                    <div style="position: absolute; inset:0; background: #e5e5e5; display:flex; align-items:center; justify-content:center; color:#888;">
+                    <img src="images/kp.jpg" alt="Instagram Reel Thumbnail">
+                    <!-- <div style="position: absolute; inset:0; background: #e5e5e5; display:flex; align-items:center; justify-content:center; color:#888;">
                         <i class="fa-solid fa-user-tie fa-3x"></i>
-                    </div>
+                    </div> -->
                     <span class="badge-icon"><i class="fa-brands fa-instagram"></i></span>
                 </div>
                 <div class="card-content">
@@ -343,7 +354,7 @@
                         <div class="card-stats">
                             <span><i class="fa-regular fa-eye"></i> 643</span>
                         </div>
-                        <a href="#" class="action-link">View <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        <a href="https://www.instagram.com/reel/DcNjifYv3_M/?igsi=MzRlODBiNWFlZA==" class="action-link">View <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
             </article>
@@ -351,9 +362,10 @@
             <!-- Item 4: Instagram Post -->
             <article class="media-card">
                 <div class="card-preview vertical">
-                    <div style="position: absolute; inset:0; background: #dedede; display:flex; align-items:center; justify-content:center; color:#888;">
+                    <img src="images/12aug.jpg" alt="Independence Day Post Thumbnail">
+                    <!-- <div style="position: absolute; inset:0; background: #dedede; display:flex; align-items:center; justify-content:center; color:#888;">
                         <i class="fa-solid fa-flag fa-3x"></i>
-                    </div>
+                    </div> -->
                     <span class="badge-icon"><i class="fa-regular fa-image"></i></span>
                 </div>
                 <div class="card-content">
@@ -363,7 +375,7 @@
                             <span><i class="fa-regular fa-heart"></i> 5</span>
                             <span><i class="fa-regular fa-comment"></i> 0</span>
                         </div>
-                        <a href="#" class="action-link">View <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        <a href="https://www.instagram.com/reel/DcDNZK2zICK/?igsi=MzRlODBiNWFlZA==" class="action-link">View <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
             </article>
