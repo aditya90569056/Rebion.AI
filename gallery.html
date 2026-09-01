@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REBIOIN AI - Gallery & Media</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon"></span>
+            <div class="logo-text">
+                <h2>REBIOIN AI</h2>
+                <span>BUILD AI FOR TOMORROW'S LEADERS</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#podcasts">Podcasts</a></li>
+            <li><a href="index.html#research">Research</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="AdityaNathResume.pdf">Resume</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="ai-btn">
+                ✨ Explore AI
+            </button>
+        </div>
+    </nav>
+
+    <div id="main">
+        <section id="gallery-hero">
+            <div class="hero-content">
+                <h3>MEDIA & EXHIBITS</h3>
+                <h1>INNOVATION IN <br>VISUAL FOCUS</h1>
+                <p>Explore moments, workshops, research breakthroughs, and event highlights from REBIOIN AI.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="filter-wrapper">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="workshops">Workshops</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+                <button class="filter-btn" data-filter="podcasts">Podcasts</button>
+            </div>
+        </section>
+
+        <!-- Gallery Grid Section -->
+        <section id="gallery-section">
+            <div class="gallery-grid">
+                
+                <div class="gallery-card" data-category="workshops">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Biotech Workshop">
+                        <div class="overlay">
+                            <span class="category-badge">Workshop</span>
+                            <h4>AI in Biotechnology 2026</h4>
+                            <p>Hands-on session with students analyzing genomic data.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="research">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="Lab Research">
+                        <div class="overlay">
+                            <span class="category-badge">Research</span>
+                            <h4>Molecular Biology Analysis</h4>
+                            <p>High-throughput sequence modeling in progress.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="podcasts">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80" alt="Podcast Session">
+                        <div class="overlay">
+                            <span class="category-badge">Podcast</span>
+                            <h4>Dr. K.P. Singh Interactive Session</h4>
+                            <p>Discussing the future of academic research & mentorship.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="events">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" alt="Conferences">
+                        <div class="overlay">
+                            <span class="category-badge">Event</span>
+                            <h4>Annual Bio-AI Summit</h4>
+                            <p>Bringing together 50+ university collaborators.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="research">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80" alt="Bioinformatics Lab">
+                        <div class="overlay">
+                            <span class="category-badge">Research</span>
+                            <h4>Gene Expression Machine Learning</h4>
+                            <p>Predictive computational models for genetics.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="workshops">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="Skill Center">
+                        <div class="overlay">
+                            <span class="category-badge">Workshop</span>
+                            <h4>Lab Skill Development Camp</h4>
+                            <p>Student practical training on wet lab techniques.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Lightbox Preview Modal -->
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-img" alt="Enlarged view">
+        <div id="modal-caption"></div>
+    </div>
+
+    <script src="gallery.js"></script>
+</body>
+</html>

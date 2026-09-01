@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcasts | REBIOIN AI</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Standalone Podcast Page Specific Styling */
+        .podcast-hero {
+            padding: 160px 8% 60px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .podcast-hero .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: rgba(121, 40, 202, 0.1);
+            color: var(--bright-purple);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .podcast-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            background: var(--gradient-vivid);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .podcast-hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        /* Podcast Container Layout */
+        .podcast-container-page {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Player Card */
+        .featured-player {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .player-cover {
+            width: 240px;
+            height: 240px;
+            border-radius: 20px;
+            background: var(--gradient-vivid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            flex-shrink: 0;
+            box-shadow: 0 15px 30px rgba(0, 82, 255, 0.2);
+        }
+
+        .player-content {
+            flex: 1;
+        }
+
+        .player-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--bright-pink);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .podcast-meta-date {
+            font-size: 0.85rem;
+            color: var(--bright-blue);
+            font-weight: 700;
+        }
+
+        .player-content h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .guest-title {
+            font-size: 1rem;
+            color: var(--bright-purple);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .player-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Audio Controls */
+        .custom-audio-bar {
+            background: var(--bg-subtle);
+            border-radius: 20px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .play-pause-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient-vivid);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 82, 255, 0.25);
+            transition: transform 0.2s ease;
+        }
+
+        .play-pause-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .progress-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .track-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 25%;
+            height: 100%;
+            background: var(--gradient-vivid);
+        }
+
+        /* Episodes List Grid */
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .episode-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .ep-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .ep-badge {
+            background: rgba(0, 82, 255, 0.1);
+            color: var(--bright-blue);
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 10px;
+        }
+
+        .ep-card-title {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .ep-card-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .ep-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        .play-link-btn {
+            background: transparent;
+            border: 2px solid var(--bright-blue);
+            color: var(--bright-blue);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .play-link-btn:hover {
+            background: var(--bright-blue);
+            color: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .featured-player {
+                flex-direction: column;
+                padding: 25px;
+            }
+            .player-cover {
+                width: 100%;
+                height: 180px;
+            }
+            .podcast-hero h1 {
+                font-size: 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unified Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon"></span>
+            <div class="logo-text">
+                <h2>REBIOIN AI</h2>
+                <span>BUILD AI FOR TOMORROW's LEADERS</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="podcast.html" class="active">Podcasts</a></li>
+            <li><a href="index.html#research">Research</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="ai-btn">✨ Explore AI</button>
+        </div>
+    </nav>
+
+    <!-- Page Header Section -->
+    <div class="podcast-hero">
+        <span class="badge">🎙️ REBIOIN AI PODCAST SERIES</span>
+        <h1>Insights From Industry Pioneers</h1>
+        <p>
+            Engaging discussions with leading researchers, biotechnology innovators, professors, and AI pioneers shaping the next era of life sciences.
+        </p>
+    </div>
+
+    <!-- Main Podcast Section -->
+    <div class="podcast-container-page">
+
+        <!-- Featured / Latest Episode -->
+        <div class="featured-player">
+            <div class="player-cover">🎙️</div>
+            <div class="player-content">
+                <div class="player-status">
+                    <span class="status-badge">FEATURED EPISODE • EP 02</span>
+                    <span class="podcast-meta-date">29 July 2026</span>
+                </div>
+                <h2>From Research to Patent Filing</h2>
+                <div class="guest-title">Guest Speaker: Dr. Atul Khajuria</div>
+                <p>
+                    Discover the roadmap of turning lab breakthroughs into intellectual property, commercial patents, and scalable biotechnology startups.
+                </p>
+
+                <!-- Audio Player UI -->
+                <div class="custom-audio-bar">
+                    <button class="play-pause-btn" id="mainPlayBtn"><a href="https://youtu.be/MvH_GROD-t8">▶</a></button>
+                    <div class="progress-container">
+                        <span class="track-time">12:30</span>
+                        <div class="progress-line">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <span class="track-time">45:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Episodes Grid -->
+        <h3 style="font-size: 1.6rem; color: var(--text-dark);">All Episodes</h3>
+        
+        <div class="episodes-grid">
+            
+            <div class="episode-card">
+                <div>
+                    <div class="ep-card-header">
+                        <span class="ep-badge">EP 02</span>
+                        <span class="podcast-meta-date">29 July 2026</span>
+                    </div>
+                    <h4 class="ep-card-title">Dr. Atul Khajuria</h4>
+                    <p class="ep-card-desc">
+                        A detailed breakdown of translating scientific discovery into intellectual property and patent filings.
+                    </p>
+                </div>
+                <div class="ep-card-footer">
+                    <span class="track-time">45 mins</span>
+                    <button class="play-link-btn"><a href="https://youtu.be/MvH_GROD-t8">Play Episode</a></button>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div>
+                    <div class="ep-card-header">
+                        <span class="ep-badge">EP 01</span>
+                        <span class="podcast-meta-date">25 July 2026</span>
+                    </div>
+                    <h4 class="ep-card-title">Journey of Dr. K.P. Singh</h4>
+                    <p class="ep-card-desc">
+                        From mentoring IIT aspirants to becoming an Associate Professor in scientific innovation and education.
+                    </p>
+                </div>
+                <div class="ep-card-footer">
+                    <span class="track-time">52 mins</span>
+                    <button class="play-link-btn"><a href="https://youtu.be/i3cqExp2cpE">Play Episode</a></button>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <div>
+                    <div class="ep-card-header">
+                        <span class="ep-badge" style="background: rgba(217,27,150,0.1); color: var(--bright-pink);">EP 03</span>
+                        <span class="podcast-meta-date">Coming Soon</span>
+                    </div>
+                    <h4 class="ep-card-title">AI in Drug Discovery</h4>
+                    <p class="ep-card-desc">
+                        Exploring machine learning algorithms for genomic sequence prediction and modern molecular design.
+                    </p>
+                </div>
+                <div class="ep-card-footer">
+                    <span class="track-time">TBA</span>
+                    <button class="play-link-btn" disabled style="opacity: 0.5; cursor: not-allowed;">Upcoming</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Simple Audio Toggle Mock
+        const playBtn = document.getElementById('mainPlayBtn');
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playBtn.textContent = isPlaying ? '❚❚' : '▶';
+        });
+    </script>
+</body>
+</html>

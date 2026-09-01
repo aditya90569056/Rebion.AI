@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@google/genai": "^1.14.0",
-    "node": "^24.6.0",
-     "type": "module"
-  }
-}

@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>REBIOIN AI // Program Syllabus</title>
+
+    <style>
+        :root {
+            --cyan: #00f0ff;
+            --magenta: #ff007f;
+            --purple: #8b5cf6;
+            --dark: #05060a;
+            --card: rgba(10, 12, 20, 0.88);
+            --text: #c7d5df;
+            --muted: #7d8b99;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--dark);
+            color: var(--text);
+            font-family: "Courier New", monospace;
+            overflow-x: hidden;
+
+            background-image:
+                linear-gradient(rgba(0,240,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,240,255,.025) 1px, transparent 1px);
+
+            background-size: 35px 35px;
+        }
+
+        /* =====================================================
+           3D BACKGROUND
+        ===================================================== */
+
+        #three-bg {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            pointer-events: none;
+        }
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -4;
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(0,240,255,.08),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(255,0,127,.07),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    rgba(5,6,10,.45),
+                    rgba(5,6,10,.72)
+                );
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .syllabus-hero {
+            padding: 130px 20px 45px;
+            text-align: center;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 16px;
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            background: rgba(0,240,255,.08);
+            box-shadow: 0 0 15px rgba(0,240,255,.25);
+            letter-spacing: 2px;
+            font-size: .8rem;
+        }
+
+        .syllabus-hero h1 {
+            margin: 20px 0 15px;
+            color: white;
+            font-size: clamp(2.3rem, 6vw, 4rem);
+            letter-spacing: 4px;
+
+            text-shadow:
+                0 0 10px var(--cyan),
+                0 0 30px rgba(0,240,255,.5);
+        }
+
+        .syllabus-hero p {
+            color: var(--muted);
+            max-width: 750px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* =====================================================
+           PROGRAM TABS
+        ===================================================== */
+
+        .program-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin: 20px auto 55px;
+            padding: 0 20px;
+        }
+
+        .tab-btn {
+            border: 1px solid var(--cyan);
+            background: rgba(0,0,0,.65);
+            color: var(--cyan);
+
+            padding: 14px 30px;
+
+            font-family: inherit;
+            font-weight: bold;
+            font-size: .9rem;
+
+            cursor: pointer;
+            transition: .3s;
+
+            clip-path: polygon(
+                0 0,
+                92% 0,
+                100% 25%,
+                100% 100%,
+                0 100%
+            );
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--cyan);
+            color: #000;
+
+            box-shadow:
+                0 0 15px var(--cyan),
+                0 0 35px rgba(0,240,255,.25);
+        }
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .syllabus-container {
+            width: min(1200px, 92%);
+            margin: auto;
+            padding-bottom: 100px;
+        }
+
+        .program-section {
+            display: none;
+            animation: fadeIn .45s ease;
+        }
+
+        .program-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================================
+           TRACK GRID
+        ===================================================== */
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(280px, 1fr)
+            );
+
+            gap: 22px;
+            margin-bottom: 45px;
+        }
+
+        .module-card {
+            position: relative;
+
+            background: var(--card);
+
+            border: 1px solid rgba(0,240,255,.25);
+            border-left: 3px solid var(--magenta);
+
+            padding: 15px;
+
+            cursor: pointer;
+
+            transition:
+                transform .3s,
+                box-shadow .3s,
+                border-color .3s;
+
+            clip-path: polygon(
+                0 0,
+                94% 0,
+                100% 12px,
+                100% 100%,
+                0 100%
+            );
+        }
+
+        .module-card:hover {
+            transform: translateY(-6px);
+
+            border-color: var(--cyan);
+
+            box-shadow:
+                0 0 20px rgba(0,240,255,.3);
+        }
+
+        .module-card.active-module {
+            border-color: var(--cyan);
+            border-left-color: var(--cyan);
+
+            box-shadow:
+                0 0 25px rgba(0,240,255,.35);
+        }
+
+        .topic-thumb {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+
+            display: block;
+
+            margin-bottom: 14px;
+
+            filter:
+                saturate(1.2)
+                contrast(1.1);
+
+            border-bottom: 1px solid var(--cyan);
+        }
+
+        .tag {
+            display: inline-block;
+
+            padding: 4px 8px;
+
+            color: var(--magenta);
+
+            border: 1px solid var(--magenta);
+
+            background: rgba(255,0,127,.08);
+
+            font-size: .7rem;
+            font-weight: bold;
+
+            margin-bottom: 9px;
+        }
+
+        .module-card h3 {
+            margin: 0;
+
+            color: white;
+
+            font-size: 1rem;
+            line-height: 1.5;
+
+            letter-spacing: .7px;
+        }
+
+        /* =====================================================
+           CURRICULUM VIEWER
+        ===================================================== */
+
+        .curriculum-viewer {
+            background: rgba(7,9,15,.92);
+
+            border: 1px solid var(--cyan);
+
+            padding: 28px;
+
+            box-shadow:
+                0 0 25px rgba(0,240,255,.12);
+        }
+
+        .module-content {
+            display: none;
+        }
+
+        .module-content:first-child {
+            display: block;
+        }
+
+        .module-content h2 {
+            margin-top: 0;
+
+            color: var(--cyan);
+
+            font-size: 1.45rem;
+
+            line-height: 1.4;
+
+            border-bottom: 1px dashed var(--cyan);
+
+            padding-bottom: 12px;
+        }
+
+        /* =====================================================
+           WEEK ACCORDION
+        ===================================================== */
+
+        .week-block {
+            margin-bottom: 13px;
+
+            border:
+                1px solid
+                rgba(0,240,255,.2);
+
+            background:
+                rgba(0,0,0,.35);
+        }
+
+        .week-header {
+            padding: 15px 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+        .week-header:hover {
+            background: rgba(0,240,255,.08);
+            color: var(--cyan);
+        }
+
+        .week-content {
+            display: none;
+
+            padding: 18px;
+
+            border-top:
+                1px solid
+                rgba(0,240,255,.15);
+
+            background:
+                rgba(3,5,9,.8);
+        }
+
+        .week-block.open .week-content {
+            display: block;
+        }
+
+        .day-list {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .day-item {
+            display: flex;
+            gap: 15px;
+
+            color: #a9b8c5;
+
+            line-height: 1.5;
+
+            font-size: .88rem;
+        }
+
+        .day-number {
+            color: var(--magenta);
+
+            font-weight: bold;
+
+            min-width: 75px;
+            flex-shrink: 0;
+        }
+
+        /* =====================================================
+           CAP INTRO
+        ===================================================== */
+
+        .program-label {
+            color: var(--magenta);
+
+            font-size: .8rem;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 10px;
+        }
+
+        .program-title {
+            color: white;
+
+            font-size: 1.8rem;
+
+            margin: 0 0 25px;
+
+            text-shadow:
+                0 0 10px
+                rgba(255,0,127,.35);
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .syllabus-hero {
+                padding-top: 100px;
+            }
+
+            .program-tabs {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+
+            .curriculum-viewer {
+                padding: 18px;
+            }
+
+            .day-item {
+                flex-direction: column;
+                gap: 3px;
+            }
+
+            .day-number {
+                min-width: auto;
+            }
+
+            .week-header {
+                font-size: .8rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                animation: none !important;
+                transition: none !important;
+            }
+
+            #three-bg {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     3D BACKGROUND
+========================================================= -->
+
+<canvas id="three-bg"></canvas>
+
+<div class="background-overlay"></div>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="syllabus-hero">
+
+    <span class="badge">
+        [ SYSTEM_CURRICULUM_V2 ]
+    </span>
+
+    <h1>PROGRAM SYLLABUS</h1>
+
+    <p>
+        Explore our high-performance tracks engineered for
+        biotech, artificial intelligence, agritech,
+        drug discovery, cybersecurity and data intelligence.
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     PROGRAM TABS
+========================================================= -->
+
+<div class="program-tabs">
+
+    <button
+        class="tab-btn active"
+        type="button"
+        onclick="switchProgram('ccp', this)"
+    >
+        CORE CONCEPT (CCP)
+    </button>
+
+    <button
+        class="tab-btn"
+        type="button"
+        onclick="switchProgram('cap', this)"
+    >
+        CAREER ACCELERATOR (CAP)
+    </button>
+
+</div>
+
+
+<div class="syllabus-container">
+
+
+<!-- =========================================================
+     CCP
+========================================================= -->
+
+<section id="ccp" class="program-section active">
+
+    <div class="program-label">
+        [ CORE CONCEPT PROGRAMME ]
+    </div>
+
+    <h2 class="program-title">
+        FOUNDATIONAL AI + BIOTECH TRACKS
+    </h2>
+
+
+    <div class="modules-grid">
+
+        <div
+            class="module-card active-module"
+            onclick="showModule('ccp','ccp-1',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=85"
+                alt="Biological Data"
+            >
+
+            <span class="tag">TRACK_01</span>
+
+            <h3>
+                Foundations of Biological Data Analysis
+            </h3>
+        </div>
+
+
+        <div
+            class="module-card"
+            onclick="showModule('ccp','ccp-2',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=800&q=85"
+                alt="Agriculture"
+            >
+
+            <span class="tag">TRACK_02</span>
+
+            <h3>
+                Digital Agricultural & Data Driven Farming
+            </h3>
+        </div>
+
+
+        <div
+            class="module-card"
+            onclick="showModule('ccp','ccp-3',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=85"
+                alt="AI Decision Making"
+            >
+
+            <span class="tag">TRACK_03</span>
+
+            <h3>
+                AI Decision Making in Biotech
+            </h3>
+        </div>
+
+
+        <div
+            class="module-card"
+            onclick="showModule('ccp','ccp-4',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=85"
+                alt="Machine Learning"
+            >
+
+            <span class="tag">TRACK_04</span>
+
+            <h3>
+                Foundations of AI & Machine Learning
+            </h3>
+        </div>
+
+
+        <div
+            class="module-card"
+            onclick="showModule('ccp','ccp-5',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=800&q=85"
+                alt="Drug Discovery"
+            >
+
+            <span class="tag">TRACK_05</span>
+
+            <h3>
+                Fundamentals of Drug Discovery & Design
+            </h3>
+        </div>
+
+
+        <div
+            class="module-card"
+            onclick="showModule('ccp','ccp-6',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=85"
+                alt="Cyber Security"
+            >
+
+            <span class="tag">TRACK_06</span>
+
+            <h3>
+                AI in Cyber Security
+            </h3>
+        </div>
+
+
+        <div
+            class="module-card"
+            onclick="showModule('ccp','ccp-7',this)"
+        >
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=85"
+                alt="Data Science"
+            >
+
+            <span class="tag">TRACK_07</span>
+
+            <h3>
+                AI in Data Science
+            </h3>
+        </div>
+
+    </div>
+
+
+    <div class="curriculum-viewer">
+
+        <!-- CCP MODULE 1 -->
+
+        <div id="ccp-1" class="module-content">
+
+            <h2>
+                // FOUNDATIONS OF BIOLOGICAL DATA ANALYSIS
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    <span>
+                        WEEK 01: BIO FOUNDATIONS + SETUP
+                    </span>
+
+                    <span class="arrow">
+                        ▼
+                    </span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Bioinformatics introduction &
+                                industry use cases
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Central Dogma & FASTA/FASTQ
+                                file structures
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                Databases: NCBI, UniProt,
+                                PDB search protocols
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CCP MODULE 2 -->
+
+        <div id="ccp-2" class="module-content">
+
+            <h2>
+                // DIGITAL AGRICULTURAL & DATA DRIVEN FARMING
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: FOUNDATIONS + AGRICULTURE
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Intro to AI in Agriculture
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Soil, crop cycle,
+                                precision farming
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                Satellite, drone, IoT,
+                                climate and soil data
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CCP MODULE 3 -->
+
+        <div id="ccp-3" class="module-content">
+
+            <h2>
+                // AI DECISION MAKING IN BIOTECH
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: AI + BIOTECH FOUNDATIONS
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                AI applications across biotech
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Data driven decision making
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CCP MODULE 4 -->
+
+        <div id="ccp-4" class="module-content">
+
+            <h2>
+                // FOUNDATIONS OF AI & MACHINE LEARNING
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: AI + ML FOUNDATIONS
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                AI, ML and Deep Learning fundamentals
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Supervised and unsupervised learning
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CCP MODULE 5 -->
+
+        <div id="ccp-5" class="module-content">
+
+            <h2>
+                // DRUG DISCOVERY & DESIGN
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: CHEMINFORMATICS FOUNDATIONS
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Drug discovery pipeline
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Molecular structures and SMILES
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CCP MODULE 6 -->
+
+        <div id="ccp-6" class="module-content">
+
+            <h2>
+                // AI IN CYBER SECURITY
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: CYBER SECURITY FUNDAMENTALS
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Cyber security fundamentals
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Threat detection and AI
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CCP MODULE 7 -->
+
+        <div id="ccp-7" class="module-content">
+
+            <h2>
+                // AI IN DATA SCIENCE
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: DATA SCIENCE FOUNDATIONS
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Data science foundations
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Python and data analysis
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CAP
+========================================================= -->
+
+<section id="cap" class="program-section">
+
+    <div class="program-label">
+        [ CAREER ACCELERATOR PROGRAMME ]
+    </div>
+
+    <h2 class="program-title">
+        ADVANCED INDUSTRY-READY TRACKS
+    </h2>
+
+
+    <div class="modules-grid">
+
+
+        <!-- CAP 1 -->
+
+        <div
+            class="module-card active-module"
+            onclick="showModule('cap','cap-1',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=85"
+                alt="Advanced Bioinformatics"
+            >
+
+            <span class="tag">
+                CAP_TRACK_01
+            </span>
+
+            <h3>
+                Advanced Bioinformatics & Biological Data Analysis
+            </h3>
+
+        </div>
+
+
+        <!-- CAP 2 -->
+
+        <div
+            class="module-card"
+            onclick="showModule('cap','cap-2',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=800&q=85"
+                alt="Agritech"
+            >
+
+            <span class="tag">
+                CAP_TRACK_02
+            </span>
+
+            <h3>
+                Predictive Modelling & Remote Sensing in Agritech
+            </h3>
+
+        </div>
+
+
+        <!-- CAP 3 -->
+
+        <div
+            class="module-card"
+            onclick="showModule('cap','cap-3',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=85"
+                alt="Bioprocess"
+            >
+
+            <span class="tag">
+                CAP_TRACK_03
+            </span>
+
+            <h3>
+                AI Powered Bioprocess & Product Optimization
+            </h3>
+
+        </div>
+
+
+        <!-- CAP 4 -->
+
+        <div
+            class="module-card"
+            onclick="showModule('cap','cap-4',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=800&q=85"
+                alt="Immunology"
+            >
+
+            <span class="tag">
+                CAP_TRACK_04
+            </span>
+
+            <h3>
+                Epitope Prediction & Antigen Design Using AI
+            </h3>
+
+        </div>
+
+
+        <!-- CAP 5 -->
+
+        <div
+            class="module-card"
+            onclick="showModule('cap','cap-5',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=85"
+                alt="Advanced AI ML"
+            >
+
+            <span class="tag">
+                CAP_TRACK_05
+            </span>
+
+            <h3>
+                Advanced AI ML for Scientific Application
+            </h3>
+
+        </div>
+
+
+        <!-- CAP 6 -->
+
+        <div
+            class="module-card"
+            onclick="showModule('cap','cap-6',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=85"
+                alt="Vaccine AI"
+            >
+
+            <span class="tag">
+                CAP_TRACK_06
+            </span>
+
+            <h3>
+                Computational Immunology for NextGen Vaccine
+            </h3>
+
+        </div>
+
+
+        <!-- CAP 7 -->
+
+        <div
+            class="module-card"
+            onclick="showModule('cap','cap-7',this)"
+        >
+
+            <img
+                class="topic-thumb"
+                src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=85"
+                alt="Data Intelligence"
+            >
+
+            <span class="tag">
+                CAP_TRACK_07
+            </span>
+
+            <h3>
+                NextGen AI & Data Intelligence Program
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <div class="curriculum-viewer">
+
+
+        <!-- =================================================
+             CAP 1
+        ================================================= -->
+
+        <div id="cap-1" class="module-content">
+
+            <h2>
+                // ADVANCED BIOINFORMATICS & BIOLOGICAL DATA ANALYSIS
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: BIO FOUNDATIONS + SETUP
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                What is bioinformatics +
+                                career paths + industry use cases
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Central Dogma - DNA, RNA, Protein +
+                                FASTA, FASTQ, GenBank
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                Biological databases and
+                                sequence analysis
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="week-block">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 2: PYTHON + BIO DATA
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 08</span>
+                            <span>
+                                Python for biological data
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 09</span>
+                            <span>
+                                NumPy and Pandas
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 10</span>
+                            <span>
+                                Biopython and sequence processing
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CAP 2
+        ================================================= -->
+
+        <div id="cap-2" class="module-content">
+
+            <h2>
+                // PREDICTIVE MODELLING & REMOTE SENSING IN AGRITECH
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: FOUNDATIONS + AGRICULTURE
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Intro to AI in Agriculture -
+                                yield, disease and weather
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Soil, crop cycle,
+                                precision farming and irrigation
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                Satellite, drone and IoT data
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CAP 3
+        ================================================= -->
+
+        <div id="cap-3" class="module-content">
+
+            <h2>
+                // AI POWERED BIOPROCESS & PRODUCT OPTIMIZATION
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: BIOTECH FOUNDATIONS + RESEARCH METHOD
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                What is a biotech case study?
+                                How to read papers and patents
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Pharma, agri, industrial and
+                                medical biotech
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                SWOT, PESTEL and biotech
+                                value-chain analysis
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CAP 4
+        ================================================= -->
+
+        <div id="cap-4" class="module-content">
+
+            <h2>
+                // EPITOPE PREDICTION & ANTIGEN DESIGN USING AI
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: IMMUNOLOGY BASICS + DATABASES
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Immune system crash course -
+                                antigens, antibodies, MHC,
+                                T-cells and B-cells
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Vaccine design pipeline
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                IEDB, UniProt, ViPR and PDB
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CAP 5
+        ================================================= -->
+
+        <div id="cap-5" class="module-content">
+
+            <h2>
+                // ADVANCED AI ML FOR SCIENTIFIC APPLICATION
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: FOUNDATIONS + PYTHON FOR ML
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                AI vs ML vs DL vs Data Science
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Python basics and libraries
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                NumPy arrays and operations
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CAP 6
+        ================================================= -->
+
+        <div id="cap-6" class="module-content">
+
+            <h2>
+                // COMPUTATIONAL IMMUNOLOGY FOR NEXTGEN VACCINE
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 01: VACCINE SCIENCE + AI FOUNDATIONS
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                Vaccine types:
+                                live, inactivated, subunit,
+                                mRNA and viral vector
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Traditional vaccine development
+                                pipeline
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                Immune system basics
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 04</span>
+                            <span>
+                                Where AI fits in vaccine development
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CAP 7
+        ================================================= -->
+
+        <div id="cap-7" class="module-content">
+
+            <h2>
+                // NEXTGEN AI & DATA INTELLIGENCE PROGRAM
+            </h2>
+
+            <div class="week-block open">
+
+                <div
+                    class="week-header"
+                    onclick="toggleWeek(this)"
+                >
+                    WEEK 1-2: GENERATIVE AI FOR DATA SCIENCE
+                    <span>▼</span>
+                </div>
+
+                <div class="week-content">
+
+                    <ul class="day-list">
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 01</span>
+                            <span>
+                                GenAI landscape, LLMs,
+                                tokenization and transformers
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 02</span>
+                            <span>
+                                Prompt engineering:
+                                zero-shot and few-shot
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 03</span>
+                            <span>
+                                Advanced prompting,
+                                function calling and JSON mode
+                            </span>
+                        </li>
+
+                        <li class="day-item">
+                            <span class="day-number">DAY 04</span>
+                            <span>
+                                Embeddings and vector databases
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- =========================================================
+     THREE.JS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script>
+    // Simple state switcher using CSS classes instead of inline styles
+    function switchProgram(programId, button) {
+        // Update active tab button
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        if (button) button.classList.add('active');
+
+        // Update active program section
+        document.querySelectorAll('.program-section').forEach(s => s.classList.remove('active'));
+        const activeSection = document.getElementById(programId);
+        if (activeSection) {
+            activeSection.classList.add('active');
+            
+            // Automatically select the first module card in the program
+            const firstCard = activeSection.querySelector('.module-card');
+            if (firstCard) {
+                const firstModuleId = firstCard.getAttribute('onclick').match(/'([^']+)'\s*\,\s*this/)[1];
+                showModule(programId, firstModuleId, firstCard);
+            }
+        }
+    }
+
+    function showModule(programId, moduleId, cardElement) {
+        const programSection = document.getElementById(programId);
+        if (!programSection) return;
+
+        // Reset module active classes
+        programSection.querySelectorAll('.module-card').forEach(c => c.classList.remove('active-module'));
+        programSection.querySelectorAll('.module-content').forEach(c => c.style.display = 'none');
+
+        // Activate selected card and viewer content
+        if (cardElement) cardElement.classList.add('active-module');
+        const selectedContent = document.getElementById(moduleId);
+        if (selectedContent) {
+            selectedContent.style.display = 'block';
+        }
+    }
+
+    function toggleWeek(header) {
+        const block = header.closest('.week-block');
+        if (!block) return;
+        block.classList.toggle('open');
+        
+        const arrow = header.querySelector('.arrow') || header.querySelector('span:last-child');
+        if (arrow) {
+            arrow.textContent = block.classList.contains('open') ? '▲' : '▼';
+        }
+    }
+
+    // Initialize default view on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const firstTab = document.querySelector('.tab-btn.active');
+        if (firstTab) {
+            switchProgram('ccp', firstTab);
+        }
+    });
+
+    // Three.js Background Logic
+    (() => {
+        const canvas = document.getElementById("three-bg");
+        if (!canvas || !window.THREE || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x05060a, 0.035);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = 12;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const world = new THREE.Group();
+        scene.add(world);
+
+        const particleCount = window.innerWidth < 700 ? 350 : 750;
+        const positions = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i++) positions[i] = (Math.random() - 0.5) * 20;
+
+        const particleGeometry = new THREE.BufferGeometry();
+        particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+        const particles = new THREE.Points(
+            particleGeometry,
+            new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.035, transparent: true, opacity: 0.65 })
+        );
+        world.add(particles);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.y -= 0.0005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener("resize", () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    })();
+</script>
+
+</body>
+</html>
