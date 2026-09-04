@@ -14,7 +14,7 @@
 
 .hero-content h1 {
     font-size: 3.5rem;
-    line-weight: 800;
+    font-weight: 800;
     line-height: 1.1;
     background: var(--gradient-vivid);
     -webkit-background-clip: text;

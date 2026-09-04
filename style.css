@@ -301,26 +301,57 @@ html, body {
   background: rgba(255,255,255,.6);
   backdrop-filter: blur(15px);
   border-top: 1px solid rgba(255,255,255,.4);
+  display: flex;
+}
+
+.logo-strip::before,
+.logo-strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-strip::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255,255,255,.85), transparent);
+}
+
+.logo-strip::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255,255,255,.85), transparent);
 }
 
 .logo-track {
   display: flex;
   align-items: center;
-  gap: 80px;
-  width: max-content;
+  gap: 60px;
+  flex-shrink: 0;
   height: 100%;
-  animation: scrollLogo 5s linear infinite;
+  padding-right: 60px;
+  animation: scrollLogo 25s linear infinite;
 }
 
 .logo-track img {
-  height: 45px;
+  height: 40px;
+  width: auto;
   filter: grayscale(100%);
-  opacity: .8;
+  opacity: .55;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logo-track img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
 }
 
 @keyframes scrollLogo {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Page 3 Styling */

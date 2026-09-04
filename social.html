@@ -265,11 +265,179 @@
         /* Custom Platform Brand Colors */
         .yt-color { color: #FF0000; }
         .ig-color { color: #E1306C; }
+
+        /* Navbar */
+        .site-nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1100px, 92%);
+            z-index: 999;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            height: 64px;
+
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .site-nav .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .site-nav .nav-logo h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .site-nav .nav-logo small {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .site-nav .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-nav .nav-links a {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .site-nav .nav-links a:hover {
+            color: var(--text-main);
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .site-nav .nav-links a.active {
+            color: var(--accent-pink);
+            background: rgba(233, 30, 99, 0.08);
+        }
+
+        .site-nav .nav-cta {
+            padding: 9px 20px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .site-nav .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(233, 30, 99, 0.2);
+        }
+
+        .site-nav .nav-cta a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-nav .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 6px 10px;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 850px) {
+            .site-nav {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px 16px;
+            }
+            .site-nav .nav-toggle {
+                display: block;
+            }
+            .site-nav .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+                margin-top: 10px;
+            }
+            .site-nav .nav-links.open {
+                display: flex;
+            }
+            .site-nav .nav-links a {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+                border-bottom: 1px solid var(--card-border);
+            }
+            .site-nav .nav-cta-wrap {
+                display: none;
+                width: 100%;
+                margin-top: 8px;
+            }
+            .site-nav .nav-cta-wrap.open {
+                display: block;
+            }
+            .site-nav .nav-cta {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <nav class="site-nav">
+        <div class="nav-logo">
+            <div>
+                <h2>REBIOIN AI</h2>
+                <small>BUILD AI FOR TOMORROW'S LEADERS</small>
+            </div>
+        </div>
+
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open'); document.querySelector('.nav-cta-wrap').classList.toggle('open');" type="button">&#9776;</button>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="podcase.html">Podcasts</a></li>
+            <li><a href="sallybus.html">Syllabus</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="social.html" class="active">Social</a></li>
+            <li><a href="gallery.html">Media</a></li>
+        </ul>
+
+        <div class="nav-cta-wrap">
+            <button class="nav-cta"><a href="https://bio-research-agent.vercel.app/">Explore AI</a></button>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
         <!-- Social Header -->
         <header class="brand-header">
             <div class="brand-avatar">

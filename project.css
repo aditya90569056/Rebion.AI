@@ -59,6 +59,27 @@
   
     cursor:pointer;
   }
+
+  .nav-links-group{
+    display:flex;
+    gap:24px;
+    align-items:center;
+  }
+
+  .nav-link-item{
+    text-decoration:none;
+    color:var(--body);
+  
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    letter-spacing:2px;
+  
+    transition:color .3s;
+  }
+
+  .nav-link-item:hover{
+    color:white;
+  }
   
   /* HERO */
   
@@ -190,6 +211,14 @@
   
     .navbar{
       padding:0 20px;
+    }
+
+    .nav-btn{
+      display:none;
+    }
+
+    .nav-links-group{
+      display:none;
     }
   
     .hero h1{
