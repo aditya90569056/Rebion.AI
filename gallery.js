@@ -20,29 +20,80 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Lightbox Modal Logic
+    // Lightbox / Collage Modal Logic
     const modal = document.getElementById("image-modal");
-    const modalImg = document.getElementById("modal-img");
+    const collage = document.getElementById("modal-collage");
     const captionText = document.getElementById("modal-caption");
     const closeModal = document.querySelector(".close-modal");
 
-    galleryCards.forEach(card => {
-        card.addEventListener("click", () => {
-            const img = card.querySelector("img");
-            const title = card.querySelector("h4").innerText;
-            modal.style.display = "block";
-            modalImg.src = img.src;
-            captionText.innerText = title;
+    function getCardImages(card) {
+        // A card may define a group of photos via data-images="a.jpeg,b.jpeg".
+        // Otherwise fall back to the card's single visible image.
+        const group = card.getAttribute("data-images");
+        if (group) {
+            return group.split(",").map(src => src.trim()).filter(Boolean);
+        }
+        const img = card.querySelector("img");
+        return img ? [img.getAttribute("src")] : [];
+    }
+
+    function getAllGalleryImages() {
+        // Collect every unique photo across the whole gallery (albums included).
+        const seen = new Set();
+        const list = [];
+        galleryCards.forEach(card => {
+            getCardImages(card).forEach(src => {
+                if (!seen.has(src)) {
+                    seen.add(src);
+                    list.push(src);
+                }
+            });
         });
+        return list;
+    }
+
+    function openModal(card) {
+        const images = getAllGalleryImages();
+        if (!images.length) return;
+
+        const title = card.querySelector("h4") ? card.querySelector("h4").innerText : "Media Gallery";
+
+        collage.innerHTML = "";
+        collage.classList.toggle("single", images.length === 1);
+
+        images.forEach(src => {
+            const image = document.createElement("img");
+            image.src = src;
+            image.alt = title;
+            image.className = "collage-item";
+            collage.appendChild(image);
+        });
+
+        captionText.innerText = title + "  •  Media Gallery  •  " + images.length + " photos";
+        modal.style.display = "block";
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+    }
+
+    galleryCards.forEach(card => {
+        card.addEventListener("click", () => openModal(card));
     });
 
-    closeModal.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+    closeModal.addEventListener("click", closeLightbox);
 
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
-            modal.style.display = "none";
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.style.display === "block") {
+            closeLightbox();
         }
     });
 });

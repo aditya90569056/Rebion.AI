@@ -558,3 +558,308 @@ video.addEventListener('mouseenter', () => {
 video.addEventListener('mouseleave', () => {
     video.pause();
 });
+/* ============================
+   REBION AI Chatbot (pre-answered Q&A)
+   ============================ */
+(function () {
+    const widget = document.getElementById("chat-widget");
+    const launcher = document.getElementById("down-arrow");
+    const closeBtn = document.getElementById("chat-close");
+    const body = document.getElementById("chat-body");
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("chat-input");
+    const suggestions = document.getElementById("chat-suggestions");
+
+    if (!widget || !launcher || !body) return;
+
+const knowledgeBase = [
+        // ---- Help & menu ----
+        {
+            keywords: ["help", "menu", "options", "what can u do", "what can you do"],
+            answer: "I can answer questions about REBION AI's syllabus &amp; modules, podcasts &amp; episodes, services, research, contact details, social media and media gallery. Try asking 'tell me about the syllabus' or 'list the podcasts'."
+        },
+        // ---- Syllabus & modules ----
+        {
+            keywords: ["syllabus", "curriculum", "tracks", "modules", "what do you teach", "course list"],
+            answer: "Our Core Concept Programme has Foundational AI + Biotech Tracks (7 modules): Foundations of Biological Data Analysis, Digital Agricultural &amp; Data Driven Farming, AI Decision Making in Biotech, Foundations of AI &amp; Machine Learning, Fundamentals of Drug Discovery &amp; Design, AI in Cyber Security and AI in Data Science. There are also Advanced Industry-Ready modules in Bioinformatics, Agritech, Bioprocess, Immunoinformatics, Vaccine Design, Medical Coding and more."
+        },
+        {
+            keywords: ["biological data", "data analysis", "sequence analysis", "ncbi", "uniprot", "pdb", "blast", "fasta", "fastq", "linux", "sequence alignment"],
+            answer: "Module: Foundations of Biological Data Analysis. You learn bioinformatics &amp; industry use cases, the Central Dogma, FASTA/FASTQ file structures, databases (NCBI, UniProt, PDB), Linux command line (grep, awk, sed), sequence alignment (global vs local) and BLAST hands-on (blastn, blastp, E-values, coverage) - ending with retrieving real gene &amp; protein sequences for a disease gene."
+        },
+        {
+            keywords: ["agriculture", "farming", "agritech", "remote sensing", "crop prediction", "sustainable agriculture"],
+            answer: "The Digital Agricultural &amp; Data Driven Farming track covers data-driven farming and agri-analytics; the advanced level is Predictive Modelling &amp; Remote Sensing in Agritech, plus Enterprise Scale AI for Sustainable Agriculture - building AI solutions from crop and satellite data."
+        },
+        {
+            keywords: ["drug", "discovery", "molecular design", "virtual screening", "drug screening", "pharma"],
+            answer: "Our syllabus includes Fundamentals of Drug Discovery &amp; Design and an advanced Deep Learning Based Virtual Drug Screening Platform. It's also the theme of our upcoming podcast EP 03 'AI in Drug Discovery', exploring ML algorithms for genomic sequence prediction and molecular design."
+        },
+        {
+            keywords: ["machine learning", "deep learning", "artificial intelligence", "neural", "ai basics", "python"],
+            answer: "Foundations of AI &amp; Machine Learning is our core intro track covering ML concepts, Python and modelling. From there you can go deeper with Advanced AI/ML for Scientific Application or Industry-Ready AI &amp; ML for R&amp;D and Analytics."
+        },
+        {
+            keywords: ["cyber", "security", "hacking", "vulnerability"],
+            answer: "Module: AI in Cyber Security - using artificial intelligence for threat detection, vulnerability analysis and securing modern research and organisational systems."
+        },
+        {
+            keywords: ["data science", "statistics", "analytics", "visualisation", "visualization"],
+            answer: "Module: AI in Data Science covers statistics, analytics and AI-driven insight generation, with a pathway into the NextGen AI &amp; Data Intelligence Program for deeper, industry-ready data engineering."
+        },
+        {
+            keywords: ["advanced bioinformatics", "bioinformatics for r", "bioinfo", "pipeline", "computational biology"],
+            answer: "At the advanced level we offer Advanced Bioinformatics &amp; Biological Data Analysis, Advance Bioinformatics for R&amp;D, and Computational Biology / Bioinformatics Pipeline Engineering - building production-grade analysis pipelines for research labs and industry."
+        },
+        {
+            keywords: ["epitope", "antigen", "immunoinformatics", "immunology", "vaccine"],
+            answer: "Tracks such as Epitope Prediction &amp; Antigen Design Using AI, Computational Immunology for NextGen Vaccine and AI Powered Vaccine Development for Biopharma cover AI-driven vaccine and immunology research, from epitopes all the way to industry-scale vaccine pipelines."
+        },
+        {
+            keywords: ["bioprocess", "bioproduct", "optimization", "industrial biotech", "biopharma"],
+            answer: "AI Powered Bioprocess &amp; Product Optimization and AI Solutions for Biopharma &amp; Industrial Biotech use AI to optimise fermentation, bioprocessing and industrial biotech products."
+        },
+        {
+            keywords: ["medical coding", "anatomy", "terminology", "health informatics"],
+            answer: "Medical Coding, Terminology &amp; Human Anatomy is an industry module covering healthcare coding systems and medical terminology - ideal for careers in health informatics and clinical data."
+        },
+        {
+            keywords: ["biological languages", "protein language", "genome language"],
+            answer: "Biological Languages treats DNA, RNA and protein sequences as languages for AI models - the foundation for sequence-based machine learning like protein language models."
+        },
+        {
+            keywords: ["certificate", "certification", "completion"],
+            answer: "Participants receive completion certificates for our training programs, workshops and camps. Contact us to confirm assessment and certificate details for your specific program."
+        },
+        {
+            keywords: ["duration", "how long", "weeks", "days", "months", "schedule", "timing"],
+            answer: "Foundation tracks are structured in week-wise modules (e.g. Week 1: Bio Foundations, Week 2: Python for Bio &amp; Stats) with day-wise lessons, while workshops and camps run over 1-2 days. Exact schedules are shared at registration."
+        },
+        // ---- Podcasts ----
+        {
+            keywords: ["podcast", "episodes", "episode", "guest", "speaker", "ep 01", "ep 02", "ep 03", "listen"],
+            answer: "Current episodes: EP 01 'Journey of Dr. K.P. Singh' (25 July 2026, 52 min) and EP 02 'From Research to Patent Filing' with Dr. Atul Khajuria (29 July 2026, 45 min). EP 03 'AI in Drug Discovery' is coming soon. All are on the <a href='podcase.html'>Podcasts</a> page and YouTube."
+        },
+        {
+            keywords: ["patent", "intellectual property", "patent filing", "commercialization", "startup", "ip rights"],
+            answer: "Our featured episode EP 02 with Dr. Atul Khajuria ('From Research to Patent Filing', 29 July 2026) explains how lab breakthroughs become intellectual property, commercial patents and scalable biotech startups. Watch: <a href='https://youtu.be/MvH_GROD-t8'>youtu.be/MvH_GROD-t8</a>."
+        },
+        {
+            keywords: ["kp singh", "dr. k.p", "dr k.p", "associate professor", "iit aspirants"],
+            answer: "Dr. K.P. Singh is an Associate Professor and mentor featured in EP 01 'Journey of Dr. K.P. Singh' (25 July 2026) - from mentoring IIT aspirants to driving scientific innovation and education. Watch: <a href='https://youtu.be/i3cqExp2cpE'>youtu.be/i3cqExp2cpE</a>."
+        },
+        {
+            keywords: ["khajuria", "atul"],
+            answer: "Dr. Atul Khajuria joins us in EP 02 'From Research to Patent Filing' (29 July 2026) to guide researchers through turning scientific discoveries into intellectual property and patents. Watch: <a href='https://youtu.be/MvH_GROD-t8'>youtu.be/MvH_GROD-t8</a>."
+        },
+        {
+            keywords: ["hiv", "protease", "cracking hiv"],
+            answer: "We feature 'Cracking HIV: An IITian's Journey into HIV Protease Research' - a podcast and social video following a researcher's path into HIV protease research. Watch: <a href='https://youtu.be/i3cqExp2cpE'>youtu.be/i3cqExp2cpE</a>."
+        },
+        {
+            keywords: ["phd", "ph.d", "research scholar", "phd students"],
+            answer: "Check out our video '7 Problems Faced by PhD Students &amp; How to Tackle Them' on the Social page - practical, candid guidance for PhD students and scholars. Watch: <a href='https://youtu.be/-kgulSq_9Bg'>youtu.be/-kgulSq_9Bg</a>."
+        },
+        // ---- Contact ----
+        {
+            keywords: ["email id", "email address", "e mail", "mail us", "send email", "your email"],
+            answer: "Our email address is <strong>info@rebioin.com</strong>. Write to us with any query and our team will get back to you."
+        },
+        {
+            keywords: ["phone number", "contact number", "mobile", "call us", "telephone", "number"],
+            answer: "You can call or WhatsApp us at <strong>+91 74040-681800</strong>."
+        },
+        {
+            keywords: ["where are you", "office address", "located", "headquarter", "dehradun", "address of"],
+            answer: "Our headquarters are at <strong>171, 3rd Floor, HDFC Bank, Vasant Vihar Branch, Dehradun - 248006</strong>."
+        },
+        {
+            keywords: ["contact", "phone", "email", "reach", "address", "location", "call", "enquiry", "query", "talk to"],
+            answer: "You can reach REBION AI at: email <strong>info@rebioin.com</strong>, phone <strong>+91 74040-681800</strong>. Our headquarters are at <strong>171, 3rd Floor, HDFC Bank, Vasant Vihar Branch, Dehradun - 248006</strong>. You can also send a message on the <a href='contact.html'>Contact Us</a> page."
+        },
+        // ---- Social & media ----
+        {
+            keywords: ["social", "instagram", "youtube", "follow", "reel", "channel", "social media"],
+            answer: "Find us as <strong>@RebioinAI</strong> on YouTube (podcasts, talks and research content) and Instagram (reels, updates and highlights). Our tagline: 'Silence self doubt. Let AI amplify your potential.' All links are on the <a href='social.html'>Social</a> page."
+        },
+        {
+            keywords: ["gallery", "media", "photo", "photos", "image", "images", "pictures"],
+            answer: "Our media gallery has photos from workshops (AI in Biotechnology, the 2-Day Drug Discovery using AI/ML), laboratory skill camps, mushroom cultivation, awards and SBS University visits. Browse them on the <a href='gallery.html'>Media</a> page."
+        },
+        {
+            keywords: ["sbs university", "rayat-bahra", "university visit"],
+            answer: "We've held hands-on training and academic outreach at SBS University, plus workshops at Rayat-Bahra University - photos from these visits are in the Media gallery."
+        },
+        // ---- Programs, workshops, admissions ----
+        {
+            keywords: ["ai in biotechnology", "biotech workshop", "ai workshop", "workshop 2026", "drug discovery workshop"],
+            answer: "'AI in Biotechnology Workshop 2026' is a hands-on workshop on machine learning for life sciences - working with biological datasets, sequence analysis, prediction models and mini-projects. Our '2 Day Workshop: Drug Discovery using AI/ML' covers AI in molecular design; photos from both are in the <a href='gallery.html'>Media</a> gallery."
+        },
+        {
+            keywords: ["workshop", "workshops", "training program", "skill camp", "camp"],
+            answer: "We run workshops like 'AI in Biotechnology Workshop 2026', the '2 Day Workshop: Drug Discovery using AI/ML', a Laboratory Skill Development Camp and hands-on training sessions. For dates and registration, contact us."
+        },
+        {
+            keywords: ["bioinformatics training", "training program", "open for admission", "program open"],
+            answer: "The Bioinformatics Training Program is open for applications - a structured, hands-on program covering biological sequence data, tools &amp; databases, Python for biological analysis and research-grade reporting. More details on the <a href='blog-bioinformatics.html'>announcement</a>."
+        },
+        {
+            keywords: ["register", "registration", "admission", "apply", "enroll", "join", "seat"],
+            answer: "Registrations are on a first-come, first-served basis. Latest openings include the Bioinformatics Training Program and Industry Internships. Contact <strong>info@rebioin.com</strong> or <strong>+91 74040-681800</strong> to apply."
+        },
+        {
+            keywords: ["fee", "fees", "price", "pricing", "cost", "charge", "payment"],
+            answer: "Fees depend on the program you choose. For accurate pricing of a specific module, workshop or camp, contact us at <strong>info@rebioin.com</strong>."
+        },
+        {
+            keywords: ["placement", "job", "career", "internship", "hiring", "recruit"],
+            answer: "Industry Internship Applications are open. Internships include live projects, mentorship, a completion certificate and networking. We also support placement preparation and career development - ask about the Career Development services."
+        },
+        // ---- Services, research, about ----
+        {
+            keywords: ["service", "services", "offer", "provide", "solutions", "what do you do"],
+            answer: "Our services: Biotechnology Training, AI &amp; Bioinformatics solutions, Research Support (publications, data analysis, scientific writing), Industrial Workshops, Career Development and Institutional Collaboration with colleges and universities."
+        },
+        {
+            keywords: ["research", "genomic", "genomics", "bioinformatics", "computational biology", "publication", "scientific writing"],
+            answer: "In research we support genomic analysis, machine learning applications, computational biology, publications and scientific writing - and our advanced tracks cover Bioinformatics for R&amp;D and Virtual Drug Screening."
+        },
+        {
+            keywords: ["mission", "vision", "about rebion", "what is rebion", "who are you", "company"],
+            answer: "REBION AI bridges biological sciences and artificial intelligence to shape the future of biotechnology - training students, supporting research and building AI for tomorrow's leaders."
+        },
+        // ---- Basic chat ----
+        {
+            keywords: ["hi", "hello", "hey", "namaste", "greetings"],
+            answer: "Hello! &#128075; I'm the REBION AI assistant. Ask me about the syllabus &amp; modules, podcasts, workshops, services, research or how to contact us."
+        },
+        {
+            keywords: ["thanks", "thank", "thankyou", "ok", "great", "nice"],
+            answer: "You're welcome! &#128522; Anything else you'd like to know about REBION AI?"
+        }
+    ];
+
+    const fallbacks = [
+        "I'm not sure about that yet. Try asking about the syllabus, podcasts, workshops, contact details or social media.",
+        "I don't have that answer right now. You can ask about modules, podcasts, services or how to reach us.",
+        "Hmm, I couldn't find a match. Ask me about the syllabus, podcasts, research, services or contact."
+    ];
+
+function findAnswer(text) {
+        const query = text.toLowerCase();
+        let best = null;
+        let bestScore = 0;
+
+        knowledgeBase.forEach(function (entry) {
+            let score = 0;
+            entry.keywords.forEach(function (word) {
+                if (query.indexOf(word) !== -1) score += word.length;
+            });
+            if (score > bestScore) {
+                bestScore = score;
+                best = entry;
+            }
+        });
+
+        if (best) return best.answer;
+        return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    }
+
+    function addMessage(text, sender) {
+        const wrap = document.createElement("div");
+        wrap.className = "chat-message " + sender;
+
+        if (sender === "bot") {
+            const avatar = document.createElement("img");
+            avatar.src = "male0145.png";
+            avatar.alt = "";
+            avatar.className = "msg-avatar";
+            wrap.appendChild(avatar);
+        }
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.innerHTML = text;
+        wrap.appendChild(bubble);
+
+        body.appendChild(wrap);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function showTyping() {
+        const wrap = document.createElement("div");
+        wrap.className = "chat-message bot";
+        wrap.id = "chat-typing";
+
+        const avatar = document.createElement("img");
+        avatar.src = "male0145.png";
+        avatar.alt = "";
+        avatar.className = "msg-avatar";
+        wrap.appendChild(avatar);
+
+        const bubble = document.createElement("div");
+        bubble.className = "bubble typing";
+        bubble.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+        wrap.appendChild(bubble);
+
+        body.appendChild(wrap);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function removeTyping() {
+        const typing = document.getElementById("chat-typing");
+        if (typing) typing.remove();
+    }
+
+    function respond(question) {
+        addMessage(question, "user");
+        if (suggestions) suggestions.style.display = "none";
+        showTyping();
+
+        setTimeout(function () {
+            removeTyping();
+            addMessage(findAnswer(question), "bot");
+        }, 650);
+    }
+
+    function openChat() {
+        widget.classList.add("open");
+        widget.setAttribute("aria-hidden", "false");
+        launcher.classList.add("chat-active");
+        if (input) input.focus();
+    }
+
+    function closeChat() {
+        widget.classList.remove("open");
+        widget.setAttribute("aria-hidden", "true");
+        launcher.classList.remove("chat-active");
+    }
+
+    launcher.addEventListener("click", openChat);
+    launcher.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openChat();
+        }
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeChat);
+
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = "";
+            respond(text);
+        });
+    }
+
+    if (suggestions) {
+        suggestions.addEventListener("click", function (e) {
+            const btn = e.target.closest("button[data-q]");
+            if (!btn) return;
+            respond(btn.getAttribute("data-q"));
+        });
+    }
+})();

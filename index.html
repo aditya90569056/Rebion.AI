@@ -33,7 +33,7 @@
     <div class="nav-actions">
         <button class="ai-btn">
 
-            <a href="https://bio-research-agent.vercel.app/">✨ Explore AI</a>
+            <a href="https://urben.app/lms/">✨ Explore AI</a>
         </button>
     </div>
 
@@ -81,7 +81,7 @@
             <div class="hero-container">
                 <div class="hero-left">
                     <h3> Bridging Biological Sciences and Artificial Intelligence to <br> Shape the Future of Biotechnology. <br> WORLD.</h3>
-                    <img src="male0145.png" alt="down-arrow" id="down-arrow">
+                    <img src="male0145.png" alt="REBION AI chat assistant" id="down-arrow" title="Chat with REBION AI" role="button" tabindex="0">
                 </div>
 
                 <!-- News Section moved to First Page -->
@@ -93,40 +93,40 @@
 
                     <div class="news-wrapper">
                         <div class="news-track">
-                            <div class="news-card">
+                            <a class="news-card" href="blog-ai-workshop.html">
                                 <span>📢 Workshop</span>
                                 <h4>AI in Biotechnology Workshop 2026</h4>
-                            </div>
-                            <div class="news-card">
+                            </a>
+                            <a class="news-card" href="blog-kp-singh.html">
                                 <span>🎙 Podcast</span>
                                 <h4>Interactive Session with Dr. K.P. Singh</h4>
-                            </div>
-                            <div class="news-card">
+                            </a>
+                            <a class="news-card" href="blog-bioinformatics.html">
                                 <span>🔬 Research</span>
                                 <h4>Bioinformatics Training Program Open</h4>
-                            </div>
-                            <div class="news-card">
+                            </a>
+                            <a class="news-card" href="blog-internship.html">
                                 <span>💼 Placement</span>
                                 <h4>Industry Internship Applications Started</h4>
-                            </div>
-                            <div class="news-card">
+                            </a>
+                            <a class="news-card" href="blog-lab-camp.html">
                                 <span>🧬 Event</span>
                                 <h4>Laboratory Skill Development Camp</h4>
-                            </div>
+                            </a>
 
                             <!-- Duplicate for smooth loop -->
-                            <div class="news-card">
+                            <a class="news-card" href="blog-ai-workshop.html">
                                 <span>📢 Workshop</span>
                                 <h4>AI in Biotechnology Workshop 2026</h4>
-                            </div>
-                            <div class="news-card">
+                            </a>
+                            <a class="news-card" href="blog-kp-singh.html">
                                 <span>🎙 Podcast</span>
                                 <h4>Interactive Session with Dr. K.P. Singh</h4>
-                            </div>
-                            <div class="news-card">
+                            </a>
+                            <a class="news-card" href="blog-bioinformatics.html">
                                 <span>🔬 Research</span>
                                 <h4>Bioinformatics Training Program Open</h4>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -353,6 +353,38 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- AI Chatbot Widget -->
+    <div id="chat-widget" class="chat-widget" aria-hidden="true">
+        <div class="chat-header">
+            <img src="male0145.png" alt="" class="chat-avatar">
+            <div class="chat-title">
+                <h3>REBION Assistant</h3>
+                <span><i class="chat-dot"></i> Online</span>
+            </div>
+            <button type="button" class="chat-close" id="chat-close" aria-label="Close chat">&#10005;</button>
+        </div>
+
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message bot">
+                <img src="male0145.png" alt="" class="msg-avatar">
+                <div class="bubble">Hi! I'm the REBION AI assistant &#129302; Ask me about our courses, podcasts, research, services or contact info.</div>
+            </div>
+            <div class="chat-suggestions" id="chat-suggestions">
+                <button type="button" data-q="What modules are in the syllabus?">Syllabus</button>
+                <button type="button" data-q="Tell me about the podcasts">Podcasts</button>
+                <button type="button" data-q="List the podcast episodes">Episodes</button>
+                <button type="button" data-q="What services do you provide?">Services</button>
+                <button type="button" data-q="What is your office address?">Address</button>
+                <button type="button" data-q="How can I contact you?">Contact</button>
+            </div>
+        </div>
+
+        <form class="chat-input-row" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Ask a question..." autocomplete="off">
+            <button type="submit" aria-label="Send">&#10148;</button>
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
