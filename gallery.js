@@ -37,23 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return img ? [img.getAttribute("src")] : [];
     }
 
-    function getAllGalleryImages() {
-        // Collect every unique photo across the whole gallery (albums included).
-        const seen = new Set();
-        const list = [];
-        galleryCards.forEach(card => {
-            getCardImages(card).forEach(src => {
-                if (!seen.has(src)) {
-                    seen.add(src);
-                    list.push(src);
-                }
-            });
-        });
-        return list;
-    }
-
     function openModal(card) {
-        const images = getAllGalleryImages();
+        const images = getCardImages(card);
         if (!images.length) return;
 
         const title = card.querySelector("h4") ? card.querySelector("h4").innerText : "Media Gallery";
@@ -69,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             collage.appendChild(image);
         });
 
-        captionText.innerText = title + "  •  Media Gallery  •  " + images.length + " photos";
+        captionText.innerText = title + "  •  " + images.length + (images.length === 1 ? " photo" : " photos");
         modal.style.display = "block";
         document.body.style.overflow = "hidden";
     }
